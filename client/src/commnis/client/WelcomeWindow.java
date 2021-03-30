@@ -24,6 +24,7 @@ public class WelcomeWindow extends JFrame implements ActionListener , TCPConnect
 
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
+    //h
 
     public static void main(String[] args) {
 
