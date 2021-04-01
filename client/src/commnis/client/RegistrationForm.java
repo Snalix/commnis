@@ -1,8 +1,10 @@
 package commnis.client;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
 
 class RegistrationForm extends JFrame implements ActionListener {
 
@@ -30,7 +32,7 @@ class RegistrationForm extends JFrame implements ActionListener {
         password_text.setBackground(Color.black);
         password_text.setForeground(Color.yellow);
         password_text.setFont(new Font("MV Boli", Font.PLAIN, 30));
-        password_text.setPreferredSize( new Dimension( 200, 24 ) );
+        password_text.setPreferredSize(new Dimension(200, 24));
         submit = new JButton("SUBMIT");
         panel = new JPanel(new GridLayout(3, 1));
         submit.setFont(new Font("MV Boli", Font.PLAIN, 30));
@@ -49,18 +51,32 @@ class RegistrationForm extends JFrame implements ActionListener {
         submit.addActionListener(this);
         add(panel, BorderLayout.CENTER);
         setTitle("COMMNIS.CHAT/SIGN UP");
-        setSize(450,350);
+        setSize(450, 350);
         setVisible(true);
     }
+
     public static void main(String[] args) {
         new RegistrationForm();
     }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         String userName = userName_text.getText();
         String password = password_text.getText();
-            message.setText(" Hello " + userName + "");
+        message.setText(" Hello " + userName + "");
         message.setFont(new Font("MV Boli", Font.PLAIN, 20));
         message.setForeground(Color.yellow);
+        try {
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:oracle:thin:@localhost:1521:xe", "admin", "admin");
+            Statement state = con.createStatement();
+            state.executeQuery("INSERT INTO users(ID,USERNAME,PASSWORD) VALUES(" + 2 + ",'" + userName + "','" + password +"')");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        WelcomeWindow w = new WelcomeWindow();
+
     }
 }

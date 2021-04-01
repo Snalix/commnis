@@ -26,13 +26,14 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="39148453-b35b-4ba4-a2a1-3998eef14788">
-        <schema name="ADMIN" object-types="table, materialized view, view, constraint, database trigger, cluster, function, package, procedure, sequence, dblink, nested table, type, synonym, dimension, column, index, dataset trigger" />
+        <schema name="ADMIN" object-types="synonym, table, materialized view, view" />
+        <schema name="PUBLIC" object-types="synonym, table, materialized view, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="39148453-b35b-4ba4-a2a1-3998eef14788">
-      <console name="COMMNISCHATdb" type="STANDARD" schema="ADMIN" session="Main" />
+      <console name="COMMNISCHATdb" type="STANDARD" schema="ADMIN" session="Main"><![CDATA[SELECT * FROM users;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -74,9 +75,9 @@
           <database-type value="ORACLE" />
           <config-type value="BASIC" />
           <database-version value="11.2" />
-          <driver-source value="BUILTIN" />
-          <driver-library value="" />
-          <driver value="" />
+          <driver-source value="EXTERNAL" />
+          <driver-library value="C:\Program Files (x86)\Java\jre1.8.0_251\lib\ext\ojdbc14.jar" />
+          <driver value="oracle.jdbc.driver.OracleDriver" />
           <url-type value="SID" />
           <host value="localhost" />
           <port value="1521" />

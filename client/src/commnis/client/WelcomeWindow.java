@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class WelcomeWindow extends JFrame implements ActionListener, TCPConnectionListener {
 
     private static final JFrame frame = new JFrame();
@@ -31,6 +32,7 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
     }
 
    public WelcomeWindow() {
+
         frame.setTitle("COMMNIS.CHAT/WELCOME PAGE");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
@@ -49,16 +51,14 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
            }
        });
 
-
         roomOne.setBounds(180, 300, 100, 40);
         roomOne.setText("ROOM #1");
         roomOne.setBackground(Color.yellow);
         roomOne.setBorder(new LineBorder(Color.green,3));
+        roomOne.setEnabled(false);
         roomOne.addActionListener(e -> {
             if(e.getSource() == roomOne){
                 Room c = new Room();
-                roomOne.setEnabled(false);
-                roomOne.setBackground(Color.gray);
             }
         });
 
@@ -88,8 +88,6 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
         label.setForeground(Color.black);
         label.setVerticalAlignment(JLabel.TOP);
         label.setHorizontalAlignment(JLabel.CENTER);
-
-
     }
 
     @Override

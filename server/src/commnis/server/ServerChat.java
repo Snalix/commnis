@@ -2,9 +2,7 @@ package commnis.server;
 
 import commnis.network.TCPConnectionListener;
 import commnis.network.TCPConnection;
-
-
-import java.io.IOException; // input/ouput exception.
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
