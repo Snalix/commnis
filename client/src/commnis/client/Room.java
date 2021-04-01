@@ -5,50 +5,54 @@ import commnis.network.TCPConnectionListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.*;
 
-public class RoomTwo extends JFrame implements ActionListener , TCPConnectionListener {
+public class Room extends JFrame implements ActionListener , TCPConnectionListener {
 
-    private static final String IP_ADDR = "192.168.31.243";
-    private static final int PORT = 8180;
+    private static final String IP_ADDR = "commnischat.sytes.net";
+    private static final int PORT = 8110;
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
     public static void main(String[] args) {
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new RoomOne();
-            }
-        });
+        SwingUtilities.invokeLater(Room::new);
     }
 
-    JTextArea log = new JTextArea();
-    JTextField fieldNickname = new JTextField("Nikita");
-    JTextField fieldInput = new JTextField("");
-    JButton send = new JButton();
-    ImageIcon logo = new ImageIcon("logo.png");
-    Border border = BorderFactory.createLineBorder(Color.RED,3);
+     JTextArea log = new JTextArea();
+     JTextField fieldNickname = new JTextField("Nikita");
+     JTextField  fieldInput  = new  JTextField("");
+     JButton send = new JButton();
+     ImageIcon logo = new ImageIcon("logo.png");
+     Border border = BorderFactory.createLineBorder(Color.green,3);
 
-    private TCPConnection connection;
+     private TCPConnection connection;
 
-    public RoomTwo(){
+    public Room(){
         log.setEditable(false);
         log.setLineWrap(true);
-        log.setBackground(Color.darkGray);
-        log.setForeground(Color.BLACK);
+        log.setBackground(Color.black);
+        log.setForeground(Color.white);
         log.setBorder(border);
+        log.setFont(new Font("Serif",Font.PLAIN,18));
 
-        this.setTitle("COMMNIS.CHAT/ROOM2");
+        this.setTitle("COMMNIS.CHAT/ROOM1");
         this.setIconImage(logo.getImage());
 
         fieldNickname.setEditable(true);
+        fieldNickname.setBackground(Color.BLACK);
+        fieldNickname.setForeground(Color.WHITE);
+        fieldNickname.setBorder(new LineBorder(Color.green,2));
+
         fieldInput.addActionListener(this);
+        fieldInput.setBorder(new LineBorder(Color.green,2));
+        fieldInput.setForeground(Color.white);
+        fieldInput.setBackground(Color.BLACK);
+        fieldInput.grabFocus();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
@@ -60,14 +64,14 @@ public class RoomTwo extends JFrame implements ActionListener , TCPConnectionLis
         add(fieldInput,BorderLayout.SOUTH);
         add(fieldNickname,BorderLayout.PAGE_START);
 
-        send.setBounds(100, 100, 100, 40);
+        send.setBounds(180, 300, 100, 40);
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String msg = fieldInput.getText();
                 if(e.getSource() == send && msg.equals("") ) return;
                 fieldInput.setText(null);
-                connection.sendString(fieldNickname.getText() + ": " + msg );
+                connection.sendString(fieldNickname.getText() + ": " + msg);
             }
         });
         try {
@@ -79,15 +83,14 @@ public class RoomTwo extends JFrame implements ActionListener , TCPConnectionLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         String msg = fieldInput.getText();
         if(e.getSource() == send && msg.equals("") ) return;
         fieldInput.setText(null);
-        connection.sendString(fieldNickname.getText() + ": " + msg);
+        connection.sendString(fieldNickname.getText() + ": " + msg );
     }
 
     @Override
-    public void onConectionReady(TCPConnection tcpConnection) {
+    public void onConnectionReady(TCPConnection tcpConnection) {
         printMsg("Connection is ready!" );
     }
 

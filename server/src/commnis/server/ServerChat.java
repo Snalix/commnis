@@ -17,7 +17,7 @@ public class ServerChat implements TCPConnectionListener {
 
     private ServerChat(){
         System.out.println("SERVER IS RUNNING");
-        try(ServerSocket serverSocket = new ServerSocket(8181)){
+        try(ServerSocket serverSocket = new ServerSocket(8190)){
             while(true){
                 try{
                     new TCPConnection(this, serverSocket.accept()); //accept() - е блоиран докато няма връзка.Връща сокет.
@@ -34,7 +34,7 @@ public class ServerChat implements TCPConnectionListener {
     }
 
     @Override
-    public synchronized void onConectionReady(commnis.network.TCPConnection tcpConnection) {
+    public synchronized void onConnectionReady(commnis.network.TCPConnection tcpConnection) {
         connections.add(tcpConnection);
         sendToAllConnections("Client connected: " + tcpConnection);
     }
