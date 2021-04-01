@@ -67,7 +67,6 @@ class RegistrationForm extends JFrame implements ActionListener {
         message.setFont(new Font("MV Boli", Font.PLAIN, 20));
         message.setForeground(Color.yellow);
         try {
-
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection con = DriverManager.getConnection(
                     "jdbc:oracle:thin:@localhost:1521:xe", "admin", "admin");
