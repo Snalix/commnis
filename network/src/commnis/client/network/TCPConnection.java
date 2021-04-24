@@ -1,4 +1,4 @@
-package commnis.network;
+package commnis.client.network;
 
 import java.io.*;
 import java.net.Socket;

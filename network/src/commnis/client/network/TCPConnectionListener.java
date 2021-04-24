@@ -1,4 +1,4 @@
-package commnis.network;
+package commnis.client.network;
 
 public interface TCPConnectionListener {
     void onConnectionReady(TCPConnection tcpConnection);

@@ -1,7 +1,6 @@
 package commnis.client;
 
 import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;

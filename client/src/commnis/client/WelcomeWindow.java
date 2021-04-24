@@ -1,7 +1,8 @@
 package commnis.client;
 
-import commnis.network.TCPConnection;
-import commnis.network.TCPConnectionListener;
+import commnis.client.network.TCPConnection;
+import commnis.client.network.TCPConnectionListener;
+import commnis.client.server.ServerChat;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -58,7 +59,9 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
         roomOne.setEnabled(false);
         roomOne.addActionListener(e -> {
             if(e.getSource() == roomOne){
-                Room c = new Room();
+                Room c = new Room("Room 1");
+                // TODO: opravi vzeemaneto na potrebitel t.e. login
+                //ServerChat.addUserToRoom(null, "Room 1");
             }
         });
 
@@ -68,7 +71,9 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
         roomTwo.setBorder(new LineBorder(Color.green,3));
         roomTwo.addActionListener(e -> {
             if(e.getSource() == roomTwo){
-                Room t = new Room();
+                Room t = new Room("Room 2");
+                // TODO: opravi vzeemaneto na potrebitel t.e. login
+                //ServerChat.addUserToRoom(null, "Room 2");
                 t.setTitle("COMMNIS.CHAT/ROOM2");
                 roomTwo.setEnabled(false);
                 roomTwo.setBackground(Color.gray);

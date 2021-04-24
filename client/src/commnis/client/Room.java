@@ -1,7 +1,9 @@
 package commnis.client;
 
-import commnis.network.TCPConnection;
-import commnis.network.TCPConnectionListener;
+import commnis.client.network.TCPConnection;
+import commnis.client.network.TCPConnectionListener;
+import commnis.client.server.User;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -9,18 +11,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Room extends JFrame implements ActionListener , TCPConnectionListener {
 
-    private static final String IP_ADDR = "commnischat.sytes.net";
-    private static final int PORT = 8110;
+    private static final String IP_ADDR = "localhost";
+    private static final int PORT = 50123;
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(Room::new);
-    }
+    private ArrayList<User> users = new ArrayList<>();
+    private String roomName;
 
      JTextArea log = new JTextArea();
      JTextField fieldNickname = new JTextField("Nikita");
@@ -31,7 +32,8 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
 
      private TCPConnection connection;
 
-    public Room(){
+    public Room(String name){
+        this.roomName = name;
         log.setEditable(false);
         log.setLineWrap(true);
         log.setBackground(Color.black);
@@ -39,7 +41,7 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
         log.setBorder(border);
         log.setFont(new Font("Serif",Font.PLAIN,18));
 
-        this.setTitle("COMMNIS.CHAT/ROOM1");
+        this.setTitle("COMMNIS.CHAT/" + name);
         this.setIconImage(logo.getImage());
 
         fieldNickname.setEditable(true);
@@ -95,7 +97,9 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
 
     @Override
     public void onReceiveString(TCPConnection tcpConnection, String value) {
-        printMsg(value);
+        for (User user: users ) {
+            user.getMessage((value));
+        }
     }
 
     @Override
@@ -108,7 +112,7 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
         printMsg("Connection exception: " + e);
     }
 
-    private synchronized void printMsg(String msg){
+    public synchronized void printMsg(String msg){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -116,5 +120,13 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
                 log.setCaretPosition(log.getDocument().getLength());
             }
         });
+    }
+
+    public void addUser(User u) {
+        this.users.add(u);
+    }
+
+    public String getRoomName() {
+        return this.roomName;
     }
 }
