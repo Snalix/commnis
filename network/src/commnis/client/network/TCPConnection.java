@@ -60,9 +60,7 @@ public class TCPConnection {
         }catch (IOException e){
             eventListener.onException(TCPConnection.this,e);
         }
-
     }
-
 
 @Override
     public String toString(){

@@ -2,7 +2,6 @@ package commnis.client;
 
 import commnis.client.network.TCPConnection;
 import commnis.client.network.TCPConnectionListener;
-import commnis.client.server.ServerChat;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,12 +16,13 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
     private static final JFrame frame = new JFrame();
     private static final JLabel label = new JLabel();
     private static final JTextField field = new JTextField("");
-    private static final JButton roomOne = new JButton();
-    private static final JButton roomTwo = new JButton();
+    JButton roomOne = new JButton();
+    JButton roomTwo = new JButton();
     private static final ImageIcon logo = new ImageIcon("logo.png");
     private static final ImageIcon welcome = new ImageIcon("newWelcome.png");
     private static final Border border = BorderFactory.createLineBorder(Color.green,3);
     private static final JButton signUp = new JButton("Sign Up");
+    private static final JButton signIn = new JButton("Sign In");
 
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
@@ -51,32 +51,35 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
                RegistrationForm r = new RegistrationForm();
            }
        });
+       signIn.setBounds(200, 430, 60, 40);
+       signIn.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+       signIn.setContentAreaFilled(false);
+       signIn.setForeground(Color.yellow);
+       signIn.addActionListener(e -> {
+           if(e.getSource() == signIn){
+              LoginForm l = new LoginForm();
+           }
+       });
 
         roomOne.setBounds(180, 300, 100, 40);
         roomOne.setText("ROOM #1");
         roomOne.setBackground(Color.yellow);
         roomOne.setBorder(new LineBorder(Color.green,3));
-        roomOne.setEnabled(false);
         roomOne.addActionListener(e -> {
             if(e.getSource() == roomOne){
-                Room c = new Room("Room 1");
-                // TODO: opravi vzeemaneto na potrebitel t.e. login
-                //ServerChat.addUserToRoom(null, "Room 1");
+                Room c = new Room();
             }
-        });
+                });
 
         roomTwo.setBounds(180, 350, 100, 40);
         roomTwo.setText("ROOM #2");
         roomTwo.setBackground(Color.yellow);
         roomTwo.setBorder(new LineBorder(Color.green,3));
+        roomTwo.setEnabled(true);
         roomTwo.addActionListener(e -> {
             if(e.getSource() == roomTwo){
-                Room t = new Room("Room 2");
-                // TODO: opravi vzeemaneto na potrebitel t.e. login
-                //ServerChat.addUserToRoom(null, "Room 2");
+                Room t = new Room();
                 t.setTitle("COMMNIS.CHAT/ROOM2");
-                roomTwo.setEnabled(false);
-                roomTwo.setBackground(Color.gray);
             }
         });
 
@@ -84,6 +87,7 @@ public class WelcomeWindow extends JFrame implements ActionListener, TCPConnecti
         label.add(roomTwo);
         label.add(field);
         label.add(signUp);
+        label.add(signIn);
         label.setIcon(welcome);
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setVerticalTextPosition(JLabel.BOTTOM);

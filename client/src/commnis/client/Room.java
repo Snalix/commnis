@@ -2,7 +2,6 @@ package commnis.client;
 
 import commnis.client.network.TCPConnection;
 import commnis.client.network.TCPConnectionListener;
-import commnis.client.server.User;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,29 +10,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Room extends JFrame implements ActionListener , TCPConnectionListener {
 
     private static final String IP_ADDR = "localhost";
-    private static final int PORT = 50123;
+    private static final int PORT = 8180;
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
-    private ArrayList<User> users = new ArrayList<>();
-    private String roomName;
-
      JTextArea log = new JTextArea();
-     JTextField fieldNickname = new JTextField("Nikita");
-     JTextField  fieldInput  = new  JTextField("");
+     JTextField fieldNickname = new JTextField();
+     JTextField  fieldInput  = new JTextField("");
      JButton send = new JButton();
      ImageIcon logo = new ImageIcon("logo.png");
      Border border = BorderFactory.createLineBorder(Color.green,3);
 
      private TCPConnection connection;
 
-    public Room(String name){
-        this.roomName = name;
+    public Room(){
         log.setEditable(false);
         log.setLineWrap(true);
         log.setBackground(Color.black);
@@ -41,7 +35,7 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
         log.setBorder(border);
         log.setFont(new Font("Serif",Font.PLAIN,18));
 
-        this.setTitle("COMMNIS.CHAT/" + name);
+        this.setTitle("COMMNIS.CHAT/");
         this.setIconImage(logo.getImage());
 
         fieldNickname.setEditable(true);
@@ -96,11 +90,9 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
     }
 
     @Override
-    public void onReceiveString(TCPConnection tcpConnection, String value) {
-        for (User user: users ) {
-            user.getMessage((value));
+    public void onReceiveString(TCPConnection tcpConnection, String value){
+        printMsg(value);
         }
-    }
 
     @Override
     public void onDisconnect(TCPConnection tcpConnection) {
@@ -120,13 +112,5 @@ public class Room extends JFrame implements ActionListener , TCPConnectionListen
                 log.setCaretPosition(log.getDocument().getLength());
             }
         });
-    }
-
-    public void addUser(User u) {
-        this.users.add(u);
-    }
-
-    public String getRoomName() {
-        return this.roomName;
     }
 }

@@ -26,14 +26,14 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="39148453-b35b-4ba4-a2a1-3998eef14788">
-        <schema name="ADMIN" object-types="synonym, table, materialized view, view" />
-        <schema name="PUBLIC" object-types="synonym, table, materialized view, view" />
+        <schema name="ADMIN" object-types="materialized view, synonym, view, table" />
+        <schema name="PUBLIC" object-types="materialized view, synonym, view, table" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="39148453-b35b-4ba4-a2a1-3998eef14788">
-      <console name="COMMNISCHATdb" type="STANDARD" schema="ADMIN" session="Main"><![CDATA[SELECT * FROM users;]]></console>
+      <console name="COMMNISCHATdb" type="STANDARD" schema="ADMIN" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
